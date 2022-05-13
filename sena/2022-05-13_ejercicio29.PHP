@@ -9,9 +9,20 @@ try {
     $conexion=new PDO("mysql:host=$servidor;dbname=album", $usuario,$contrasenia );
     $conexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-$sql="INSERT INTO `fotos` (`id-1027524144`, `nombre-1027524144`, `ruta-1027524144`) VALUES (NULL, 'jugando con la programacion', 'foto.jpg');";
+  $sql=" SELECT * FROM `fotos`";
+    
+$sentencia=$conexion->prepare($sql);
+$sentencia->execute();
 
-$conexion->exec($sql);
+$resultado=$sentencia->fetchAll();
+
+//print_r($resultado);
+
+foreach($resultado as $foto){
+    
+    echo $foto['nombre-1027524144']."<br/>";
+}
+
 echo "Conexion establecida";
 
 } catch (PDOExpection $error) {
